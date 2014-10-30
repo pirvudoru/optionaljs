@@ -48,29 +48,12 @@ for (var index = 0; index < myArray.length; index++) {
 
 ````
 
-You can also try invoking functions
-````js
-var MyType = function () {
-  this.get = function (key) {
-    return obj[key];
-  }
-};
-
-var myObj = new MyType();
-myObj.answer = {
-  info: 42
-};
-  
-console.log(Optional.from(myObj).try('get', 'answer').try('info').value());
-> 42
-````
-
 Additionally, you can provide a default value in case the final result is null or undefined:
 ````js
 for (var index = 0; index < myArray.length; index++) {
   var infoValue = Optional.from(myArray)
                           .try(index)
-                          .try('get', 'answer')
+                          .try('answer')
                           .try('info')
                           .value('Element at ' + i + ' does not have an answer info');
   
@@ -90,7 +73,7 @@ var totalEmptyAnswerInfo = 0;
 for (var index = 0; index < myArray.length; index++) {
   var infoValue = Optional.from(myArray)
                           .try(index)
-                          .try('get', 'answer')
+                          .try('answer')
                           .try('info')
                           .value(function () {
                             return 'Found ' + (++totalEmptyAnswerInfo) + ' elements without an answer info';
@@ -105,6 +88,23 @@ for (var index = 0; index < myArray.length; index++) {
 > Found 2 elements without an answer info
 > Found 3 elements without an answer info
 
+````
+
+You can also try invoking functions
+````js
+var MyType = function () {
+  this.get = function (key) {
+    return obj[key];
+  }
+};
+
+var myObj = new MyType();
+myObj.answer = {
+  info: 42
+};
+  
+console.log(Optional.from(myObj).try('get', 'answer').try('info').value());
+> 42
 ````
 
 ### Extensibility
