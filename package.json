@@ -1,0 +1,15 @@
+{
+  "name": "optionaljs",
+  "version": "0.0.0",
+  "description": "Optional monad for js to avoid nested if statements",
+  "main": "src/optional.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pirvudoru/optionaljs.git"
+  },
+  "author": "pirvudoru",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/pirvudoru/optionaljs/issues"
+  }
+}
