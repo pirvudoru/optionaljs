@@ -29,7 +29,7 @@ Normally you would do
 ````js
 for (var index = 0; index < myArray.length; index++) {
   var arrayItem = myArray[index];
-  if ( instanceof MyType) {
+  if (arrayItem instanceof MyType) {
     var answer = arrayItem.get('answer');
     if (answer !== undefined && answer !== null) {
       console.log(answer.info);
