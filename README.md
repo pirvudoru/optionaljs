@@ -3,7 +3,7 @@ optionalJs
 
 Optional monad for js to avoid nested if statements
 
-Usage:
+### Usage:
 
 Assume you have the following array of items
 ````js
@@ -101,4 +101,28 @@ for (var index = 0; index < myArray.length; index++) {
 > Found 2 elements without an answer info
 > Found 3 elements without an answer info
 
+````
+
+### Extensibility
+
+You can provide your own methods that would allow you to chain the calls untill you reach the desired property.
+Restrictions: 
+- you must always return a new Optional instance
+- you must not alter the current Optional wrapped value
+
+For example
+
+````js
+Optional.prototype.toInteger = function () { 
+  var result;
+  
+  if (!this.isNull()) {
+    result = parseInt(this.item);
+  }
+  
+  return Optional.from(result);
+}
+
+console.log(typeof Optional.from({number: '42'}).try('number').toInteger().value());
+> number
 ````
