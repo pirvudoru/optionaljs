@@ -48,7 +48,7 @@ for (var index = 0; index < myArray.length; index++) {
 But you can do
 ````js
 for (var index = 0; index < myArray.length; index++) {
-  var infoValue = Optional.from(myArray[index]).try('get', 'answer').try('info').value();
+  var infoValue = Optional.from(myArray).try(index).try('get', 'answer').try('info').value();
   
   console.log(infoValue);
 }
@@ -64,7 +64,8 @@ for (var index = 0; index < myArray.length; index++) {
 Additionally, you can provide a default value in case the final result is null or undefined:
 ````js
 for (var index = 0; index < myArray.length; index++) {
-  var infoValue = Optional.from(myArray[index])
+  var infoValue = Optional.from(myArray)
+                          .try(index)
                           .try('get', 'answer')
                           .try('info')
                           .value('Element at ' + i + ' does not have an answer info');
@@ -73,8 +74,8 @@ for (var index = 0; index < myArray.length; index++) {
 }
 
 > Element at 0 does not have an answer info
-> Element at 1 does not have an answer info
 > 42
+> Element at 1 does not have an answer info
 > Element at 3 does not have an answer info
 
 ````
@@ -83,7 +84,8 @@ Or you can provide a function as a default value provider:
 ````js
 var totalEmptyAnswerInfo = 0;
 for (var index = 0; index < myArray.length; index++) {
-  var infoValue = Optional.from(myArray[index])
+  var infoValue = Optional.from(myArray)
+                          .try(index)
                           .try('get', 'answer')
                           .try('info')
                           .value(function () {
@@ -95,8 +97,8 @@ for (var index = 0; index < myArray.length; index++) {
 
 // Output
 > Found 1 elements without an answer info
-> Found 2 elements without an answer info
 > 42
+> Found 2 elements without an answer info
 > Found 3 elements without an answer info
 
 ````
