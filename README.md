@@ -7,20 +7,7 @@ Optional monad for js to avoid nested if statements
 
 Assume you have the following array of items
 ````js
-var MyType = function () {
-  this.get = function (key) {
-    return obj[key];
-  }
-};
-
-var myObj = new MyType();
-myObj.answer = {
-  info: 42
-};
-  
-var myOtherObj = new MyType();
-  
-var myArray = [undefined, myObj, 'test', myOtherObj];
+var myArray = [undefined, {answer: {info: 42}}, 'test', 42];
 ````
 
 We want to display info of the answer of each element in an array.
@@ -29,9 +16,9 @@ Normally you would do
 ````js
 for (var index = 0; index < myArray.length; index++) {
   var arrayItem = myArray[index];
-  if (arrayItem instanceof MyType) {
-    var answer = arrayItem.get('answer');
-    if (answer !== undefined && answer !== null) {
+  if (arrayItem) {
+    var answer = arrayItem.answer;
+    if (answer) {
       console.log(answer.info);
     }
   }
@@ -48,7 +35,7 @@ for (var index = 0; index < myArray.length; index++) {
 But you can do
 ````js
 for (var index = 0; index < myArray.length; index++) {
-  var infoValue = Optional.from(myArray).try(index).try('get', 'answer').try('info').value();
+  var infoValue = Optional.from(myArray).try(index).try('answer').try('info').value();
   
   console.log(infoValue);
 }
@@ -59,6 +46,23 @@ for (var index = 0; index < myArray.length; index++) {
 > undefined
 > undefined
 
+````
+
+You can also try invoking functions
+````js
+var MyType = function () {
+  this.get = function (key) {
+    return obj[key];
+  }
+};
+
+var myObj = new MyType();
+myObj.answer = {
+  info: 42
+};
+  
+console.log(Optional.from(myObj).try('get', 'answer').try('info').value());
+> 42
 ````
 
 Additionally, you can provide a default value in case the final result is null or undefined:
