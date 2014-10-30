@@ -1,0 +1,21 @@
+{
+  "name": "optionaljs",
+  "version": "0.0.0",
+  "homepage": "https://github.com/pirvudoru/optionaljs",
+  "authors": [
+    "Pirvu Doru Lucian <doru.pirvu@agilefreaks.com>"
+  ],
+  "description": "Optional monad for js to avoid nested if statements",
+  "main": "src/optional.js",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "Apache-2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
