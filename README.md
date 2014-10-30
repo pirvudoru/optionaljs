@@ -20,7 +20,7 @@ myObj.answer = {
   
 var myOtherObj = new MyType();
   
-var myArray = [undefined, 1, myObj, 'test', myOtherObj];
+var myArray = [undefined, myObj, 'test', myOtherObj];
 ````
 
 We want to display info of the answer of each element in an array.
@@ -36,6 +36,13 @@ for (var index = 0; index < myArray.length; index++) {
     }
   }
 }
+
+// Output
+> undefined
+> 42
+> undefined
+> undefined
+
 ````
 
 But you can do
@@ -45,4 +52,51 @@ for (var index = 0; index < myArray.length; index++) {
   
   console.log(infoValue);
 }
+
+// Output
+> undefined
+> 42
+> undefined
+> undefined
+
+````
+
+Additionally, you can provide a default value in case the final result is null or undefined:
+````js
+for (var index = 0; index < myArray.length; index++) {
+  var infoValue = Optional.from(myArray[index])
+                          .try('get', 'answer')
+                          .try('info')
+                          .value('Element at ' + i + ' does not have an answer info');
+  
+  console.log(infoValue);
+}
+
+> Element at 0 does not have an answer info
+> Element at 1 does not have an answer info
+> 42
+> Element at 3 does not have an answer info
+
+````
+
+Or you can provide a function as a default value provider:
+````js
+var totalEmptyAnswerInfo = 0;
+for (var index = 0; index < myArray.length; index++) {
+  var infoValue = Optional.from(myArray[index])
+                          .try('get', 'answer')
+                          .try('info')
+                          .value(function () {
+                            return 'Found ' + (++totalEmptyAnswerInfo) + ' elements without an answer info';
+                          });
+  
+  console.log(infoValue);
+}
+
+// Output
+> Found 1 elements without an answer info
+> Found 2 elements without an answer info
+> 42
+> Found 3 elements without an answer info
+
 ````
